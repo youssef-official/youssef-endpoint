@@ -149,7 +149,8 @@ export async function claudeCompletions(req, res) {
           type: 'message',
           role: 'assistant',
           content: [],
-          model: originalModel
+          model: originalModel,
+          usage: { input_tokens: 0, output_tokens: 0 }
         }
       };
       res.write(`event: message_start\ndata: ${JSON.stringify(startMsg)}\n\n`);
