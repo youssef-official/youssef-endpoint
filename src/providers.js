@@ -39,7 +39,7 @@ export const PROVIDERS = [
   {
     name: 'Fireworks AI (minimax-m3)',
     model: 'accounts/fireworks/models/minimax-m3',
-    baseUrl: 'https://api.fireworks.ai/inference/v1/completions',
+    baseUrl: 'https://api.fireworks.ai/inference/v1/chat/completions',
     getApiKeys: () => [process.env.FIREWORKS_API_KEY].filter(Boolean),
     headers: (apiKey) => ({
       'Content-Type': 'application/json',
