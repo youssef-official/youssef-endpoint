@@ -2,9 +2,9 @@
  * Provider Fallback Chain Configuration
  *
  * Order:
- *  1. Xiaomi Mimo (mimo-v2.5) — Key A first, Key B on auth/rate error
- *  2. NVIDIA (deepseek-ai/deepseek-v4-pro)
- *  3. B.ai (deepseek-v4-flash)
+ *  1. Xiaomi Mimo (mimo-v2.5)          — Key A first, Key B on auth/rate error
+ *  2. Fireworks AI (minimax-m3)         — accounts/fireworks/models/minimax-m3
+ *  3. NVIDIA (minimaxai/minimax-m3)
  *  4. TokenLB (claude-sonnet-4-6)
  *
  * If a provider returns an HTTP error or network error the chain moves to the
@@ -35,22 +35,19 @@ export const PROVIDERS = [
     }),
   },
 
-  // ── 1. Kimchi minimax-m3 ───────────────────────────────────────────────────
+  // ── 2. Fireworks AI minimax-m3 ─────────────────────────────────────────────
   {
-    name: 'Kimchi (minimax-m3)',
-    model: 'minimax-m3',
-    baseUrl: 'https://llm.kimchi.dev/openai/v1/chat/completions',
-    getApiKeys: () => [
-      process.env.KIMCHI_API_KEY || 'minimax-m3',
-    ].filter(Boolean),
+    name: 'Fireworks AI (minimax-m3)',
+    model: 'accounts/fireworks/models/minimax-m3',
+    baseUrl: 'https://api.fireworks.ai/inference/v1/completions',
+    getApiKeys: () => [process.env.FIREWORKS_API_KEY].filter(Boolean),
     headers: (apiKey) => ({
       'Content-Type': 'application/json',
       Authorization: `Bearer ${apiKey}`,
     }),
   },
 
-
-  // ── 2. NVIDIA minimax-m3 ───────────────────────────────────────────────────
+  // ── 3. NVIDIA minimax-m3 ───────────────────────────────────────────────────
   {
     name: 'NVIDIA (minimaxai/minimax-m3)',
     model: 'minimaxai/minimax-m3',

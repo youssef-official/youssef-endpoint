@@ -42,9 +42,9 @@ graph TD
     P0 -- Success --> Return[Response to Client]
     P0 -- Rate Limit/Error --> P0_B{Xiaomi Mimo Key B}
     P0_B -- Success --> Return
-    P0_B -- Failure --> P1{Kimchi minimax-m3}
+    P0_B -- Failure --> P1{Fireworks AI minimax-m3}
     P1 -- Success --> Return
-    P1 -- Failure/Error --> P2{NVIDIA minimax-m3}
+    P1 -- Failure --> P2{NVIDIA minimax-m3}
     P2 -- Success --> Return
     P2 -- Failure --> P3{TokenLB Claude Sonnet}
     P3 -- Success --> Return
@@ -70,7 +70,7 @@ graph TD
 When a request is received, it starts with the first provider. If it encounters a network or HTTP error, it seamlessly attempts the next provider without exposing the failure to the client:
 
 1.  **Xiaomi Mimo** (`mimo-v2.5` - Failover between 2 API keys)
-2.  **Kimchi** (`minimax-m3`)
+2.  **Fireworks AI** (`accounts/fireworks/models/minimax-m3`)
 3.  **NVIDIA** (`minimaxai/minimax-m3`)
 4.  **TokenLB Claude** (`claude-sonnet-4-6`)
 
@@ -94,22 +94,8 @@ cd youssef-endpoint
 npm install
 ```
 
-### 2. Configuration
-Create a `.env` file in the root directory:
-```env
-PORT=3001
 
-# API Subscriptions & Trial Keys
-KIMCHI_API_KEY=your_key
-XIAOMI_API_KEY_A=your_key_a
-XIAOMI_API_KEY_B=your_key_b
-XIAOMI_MODEL=mimo-v2.5
-NVIDIA_API_KEY=your_key
-BAI_API_KEY=your_key
-TOKENLB_API_KEY=your_key
-```
-
-### 3. Run the Server
+### 2. Run the Server
 *   **Development mode (auto-restart on changes)**:
     ```bash
     npm run dev
